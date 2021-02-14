@@ -1,6 +1,7 @@
 const path = require("path");
 const recursiveReadSync = require('recursive-readdir-sync')
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const Translator = require('./src/lib/i18n/translator');
 
 // TODO: separate this in a config file
 const viewsRoot = './src/views';
@@ -56,7 +57,6 @@ function getViewsForEachLanguage(views) {
   }).flat();
 }
 
-const Translator = require('./src/lib/i18n/translator');
 module.exports = {
   getViews: getViews,
   createView: (view) => {
