@@ -11,16 +11,13 @@ const indexLang = 'en-US';
 const urlBase = '/';
 
 function getViews() {
-  const views = [getIndexView()];
-  return views.concat(getViewsForEachLanguage(buildViewObjects()));
-}
-
-function getIndexView() {
-  return {
-    path: '',
-    template: path.join(viewsRoot, 'index.ejs'),
-    lang: indexLang
-  };
+  const views = getViewsForEachLanguage(buildViewObjects());
+  return views.map((v) => {
+    if (indexLang === v.lang) {
+      v.path = v.path.replace(`${indexLang}`, '.');
+    }
+    return v;
+  });
 }
 
 function buildViewObjects() {
