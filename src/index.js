@@ -6,7 +6,7 @@ function component() {
   const btn = document.createElement('button');
 
   // Lodash, currently included via a script, is required for this line to work
-  element.innerHTML = _.join(['Hello', 'Pinky!'], ' ');
+  element.innerHTML = _.join(['Hello', 'Pinky!', ' You are a beautiful cat!'], ' ');
 
   btn.innerHTML = 'Click me!';
   btn.onclick = printMe;
