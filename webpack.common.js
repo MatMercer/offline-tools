@@ -1,19 +1,25 @@
+const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
-  entry: './src/index.js',
-  devtool: 'inline-source-map',
-  devServer: {
-    contentBase: './dist'
+  entry: ['./src/index.js'],
+  plugins: [
+    new CleanWebpackPlugin({cleanStaleWebpackAssets: false}),
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.ejs$/i,
+        use: ['ejs-webpack-loader'],
+      },
+    ],
   },
   plugins: [
-    new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
     new HtmlWebpackPlugin({
-      title: 'Code Splitting',
-    }),
+      template: '!!ejs-webpack-loader!src/index.ejs'
+    })
   ],
   output: {
     filename: '[name].[contenthash].js',
@@ -33,3 +39,4 @@ module.exports = {
     },
   },
 };
+
