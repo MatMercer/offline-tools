@@ -1,23 +1,17 @@
 import _ from 'lodash';
-import './style.css';
-import pinky from '../img/pinky.jpg';
-import Data from './data.xml';
-import Notes from './data.csv';
+import printMe from './print.js';
 
 function component() {
   const element = document.createElement('div');
+  const btn = document.createElement('button');
 
   // Lodash, currently included via a script, is required for this line to work
   element.innerHTML = _.join(['Hello', 'Pinky!'], ' ');
-  element.classList.add('hello');
 
-  const myIcon = new Image();
-  myIcon.src = pinky;
-  
-  element.appendChild(myIcon);
+  btn.innerHTML = 'Click me!';
+  btn.onclick = printMe;
 
-  console.log(Data);
-  console.log(Notes);
+  element.appendChild(btn);
 
   return element;
 }
