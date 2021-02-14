@@ -4,9 +4,9 @@
   "description": "JS Offline tools",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack build --config webpack.prod.js",
-    "start": "webpack serve --open --config webpack.dev.js"
+    "start": "webpack serve --open --config webpack.dev.js",
+    "test": "mocha './src/**/*.test.js'"
   },
   "author": "MatMercer <contact@matbm.net>",
   "license": "MIT",
@@ -16,6 +16,7 @@
     "ejs-webpack-loader": "^2.2.2",
     "google-closure-compiler": "^20210202.0.0",
     "html-webpack-plugin": "^5.1.0",
+    "mocha": "^8.3.0",
     "recursive-readdir-sync": "^1.0.6",
     "webpack": "^5.21.2",
     "webpack-cli": "^4.5.0",

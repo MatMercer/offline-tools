@@ -59,6 +59,7 @@ function getViewsForEachLanguage(views) {
   }).flat();
 }
 
+const Translator = require('./src/lib/i18n/translator');
 module.exports = {
   getViews: getViews,
   createView: (view) => {
@@ -67,10 +68,12 @@ module.exports = {
       template: `!!ejs-webpack-loader!${view.template}`,
       title: null,
       pageName: null,
-      lang: view.lang,
       // chunks: ['global'],
       inject: "head",
-      // strings: require('./src/lib/i18n/strings').get(view.lang),
+      offlineTools: {
+        lang: view.lang,
+        i18n: Translator.get(`${__dirname}/i18n`, view.lang),
+      },
       // url: require('./src/lib/views/url').withBase(urlBase)
     })
   },
