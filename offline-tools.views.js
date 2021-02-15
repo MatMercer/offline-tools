@@ -24,7 +24,7 @@ function getViews() {
 function buildViewObjects() {
   return recursiveReadSync(viewsRoot)
     .filter(file => {
-      return !isPartialView(file) && isEjs(file);
+      return !isPartialView(file) && isHbs(file);
     }).map(file => {
       let viewPath = path.basename(path.dirname(file));
       if (viewPath === 'views') {
@@ -43,8 +43,8 @@ function isPartialView(f) {
   return excludes.indexOf(parentDir) === 0;
 }
 
-function isEjs(file) {
-  return path.parse(file).ext.toLowerCase() === '.ejs';
+function isHbs(file) {
+  return path.parse(file).ext.toLowerCase() === '.hbs';
 }
 
 function getViewsForEachLanguage(views) {
@@ -62,7 +62,7 @@ module.exports = {
   createView: (view) => {
     return new HtmlWebpackPlugin({
       filename: `${view.path && view.path + '/'}index.html`,
-      template: `!!ejs-webpack-loader!${view.template}`,
+      template: `!!handlebars-loader!${view.template}`,
       title: null,
       pageName: null,
       // chunks: ['global'],
