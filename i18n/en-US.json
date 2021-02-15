@@ -1,5 +1,14 @@
 {
   "site": {
     "title": "Offline Tools"
+  },
+  "index": {
+    "tools": "Tools",
+    "physics": "Physics"
+  },
+  "tools": {
+    "physics": {
+      "title": "Physics Tools"
+    }
   }
 }

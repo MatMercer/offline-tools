@@ -1,5 +1,14 @@
 {
   "site": {
     "title": "Ferramentas Offline"
+  },
+  "index": {
+    "tools": "Ferramentas",
+    "physics": "Física"
+  },
+  "tools": {
+    "physics": {
+      "title": "Ferramentas de Física"
+    }
   }
 }

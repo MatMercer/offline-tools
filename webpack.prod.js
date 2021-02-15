@@ -6,7 +6,7 @@ module.exports = merge(common, {
   mode: 'production',
   resolve: {
     alias: {
-      vue: 'vue/dist/vue.min.js'
+      'vue/dist/vue': 'vue/dist/vue.min.js' // use min version instead of debug version
     }
   }
 });
