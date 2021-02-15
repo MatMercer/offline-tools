@@ -1,6 +1,6 @@
-const Vue = require('vue');
+const Vue = require('vue/dist/vue');
 
-var app = new Vue({
+const app = new Vue({
   el: '#app',
   data: {
     message: 'Hello Vue!'

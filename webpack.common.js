@@ -18,6 +18,10 @@ module.exports = {
         test: /\.ejs$/i,
         use: ['ejs-webpack-loader'],
       },
+      {
+        test: /\.json$/i,
+        use: ['json-loader']
+      }
     ],
   },
   output: {

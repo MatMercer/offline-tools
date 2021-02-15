@@ -1,19 +1,16 @@
-<%
-const i = htmlWebpackPlugin.options.offlineTools.i18n;
-%>
+<% const i = htmlWebpackPlugin.options.offlineTools.i18n; %>
+<%- include partials/top.ejs %>
 
-<!doctype html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title><%= i('site.title') %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-</head>
-<body>
 <h1><%= i('site.title') %></h1>
 <div id="app">
     {{ message }}
 </div>
+<h1><%= i('index.tools') %></h1>
+<ul>
+    <li>
+        <a href="/physics"><%= i('index.physics') %></a>
+    </li>
+</ul>
 <ul>
     <li>
         <a href="/">en-US</a>
@@ -22,5 +19,5 @@ const i = htmlWebpackPlugin.options.offlineTools.i18n;
         <a href="/pt-BR">pt-BR</a>
     </li>
 </ul>
-</body>
-</html>
+
+<%- include partials/bottom.ejs %>

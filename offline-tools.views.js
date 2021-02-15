@@ -71,7 +71,7 @@ module.exports = {
         lang: view.lang,
         i18n: Translator.get(`${__dirname}/i18n`, view.lang),
       },
-      // url: require('./src/lib/views/url').withBase(urlBase)
+      // url: require('./src/lib/views/url').withBase(urlBase) // TODO: implement url logic
     })
   },
 };
