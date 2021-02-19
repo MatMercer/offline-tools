@@ -6,7 +6,7 @@ const UrlHelper = require('./src/lib/url/url');
 
 // TODO: separate this in a config file
 const viewsRoot = './src/views';
-const excludes = ['partials'];
+const partialsRoot = 'src/views/partials/';
 
 const availableLanguages = ['en-US', 'pt-BR']
 const indexLang = 'en-US';
@@ -21,7 +21,7 @@ function buildViewObjects() {
     .filter(file => {
       return !isPartialView(file) && isEjs(file);
     }).map(file => {
-      let viewPath = path.basename(path.dirname(file));
+      let viewPath = path.dirname(file).replace('src/views', '.');
       if (viewPath === 'views') {
         viewPath = '';
       }
@@ -34,8 +34,7 @@ function buildViewObjects() {
 }
 
 function isPartialView(f) {
-  const parentDir = path.basename(path.dirname(f));
-  return excludes.indexOf(parentDir) === 0;
+  return f.indexOf(partialsRoot) === 0;
 }
 
 function isEjs(file) {
@@ -54,7 +53,7 @@ function getViewsForEachLanguage(views) {
 
 function createViewPath(lang, viewPath) {
   if (lang === indexLang) {
-    return path.join('.', viewPath);
+    return viewPath;
   } else {
     return path.join(lang, viewPath);
   }

@@ -8,7 +8,10 @@
   },
   "tools": {
     "physics": {
-      "title": "Physics Tools"
+      "title": "Physics Tools",
+      "temperature-converter": {
+        "title": "Temperature Converter"
+      }
     }
   }
 }

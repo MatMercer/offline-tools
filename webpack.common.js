@@ -9,7 +9,7 @@ const views = offlineTools.getViews().map((v) => offlineTools.createView(v));
 module.exports = {
   entry: {
     offlineTools: './src/index.js',
-    'hello-physics': './src/views/physics/hello-physics.js'
+    'hello-physics': './src/views/physics/index.js'
   },
   plugins: [
     ...views,
