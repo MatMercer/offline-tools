@@ -13,13 +13,7 @@ const indexLang = 'en-US';
 const urlBase = '/';
 
 function getViews() {
-  const views = getViewsForEachLanguage(buildViewObjects());
-  return views.map((v) => {
-    if (indexLang === v.lang) {
-      v.path = v.path.replace(`${indexLang}`, '.');
-    }
-    return v;
-  });
+  return getViewsForEachLanguage(buildViewObjects());
 }
 
 function buildViewObjects() {
@@ -51,11 +45,19 @@ function isEjs(file) {
 function getViewsForEachLanguage(views) {
   return availableLanguages.map(lang => {
     return views.map(v => ({
-      path: path.join(lang, v.path),
+      path: createViewPath(lang, v.path),
       template: v.template,
       lang: lang
     }));
   }).flat();
+}
+
+function createViewPath(lang, viewPath) {
+  if (lang === indexLang) {
+    return path.join('.', viewPath);
+  } else {
+    return path.join(lang, viewPath);
+  }
 }
 
 function getUrlHelperFor(view) {
@@ -75,7 +77,7 @@ module.exports = {
       template: `!!ejs-webpack-loader!${view.template}`,
       title: null,
       pageName: null,
-      // chunks: ['global'],
+      chunks: ['offlineTools'],
       inject: "head",
       offlineTools: {
         lang: view.lang,

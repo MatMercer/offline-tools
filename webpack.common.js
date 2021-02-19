@@ -7,7 +7,10 @@ const offlineTools = require('./offline-tools.views');
 const views = offlineTools.getViews().map((v) => offlineTools.createView(v));
 
 module.exports = {
-  entry: ['./src/index.js'],
+  entry: {
+    offlineTools: './src/index.js',
+    'hello-physics': './src/views/physics/hello-physics.js'
+  },
   plugins: [
     ...views,
     new CleanWebpackPlugin({cleanStaleWebpackAssets: false})
