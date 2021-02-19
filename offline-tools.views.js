@@ -2,6 +2,7 @@ const path = require("path");
 const recursiveReadSync = require('recursive-readdir-sync')
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const Translator = require('./src/lib/i18n/translator');
+const UrlHelper = require('./src/lib/url/url');
 
 // TODO: separate this in a config file
 const viewsRoot = './src/views';
@@ -57,6 +58,15 @@ function getViewsForEachLanguage(views) {
   }).flat();
 }
 
+function getUrlHelperFor(view) {
+  let rootPath = urlBase;
+  if (view.lang !== indexLang) {
+    rootPath = path.join(rootPath, view.lang);
+  }
+
+  return UrlHelper.createHelper(rootPath);
+}
+
 module.exports = {
   getViews: getViews,
   createView: (view) => {
@@ -70,8 +80,8 @@ module.exports = {
       offlineTools: {
         lang: view.lang,
         i18n: Translator.get(`${__dirname}/i18n`, view.lang),
+        url: getUrlHelperFor(view)
       },
-      // url: require('./src/lib/views/url').withBase(urlBase) // TODO: implement url logic
     })
   },
 };

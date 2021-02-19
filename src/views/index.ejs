@@ -1,4 +1,5 @@
 <% const i = htmlWebpackPlugin.options.offlineTools.i18n; %>
+<% const u = htmlWebpackPlugin.options.offlineTools.url; %>
 <%- include partials/top.ejs %>
 
 <h1><%= i('site.title') %></h1>
@@ -8,15 +9,7 @@
 <h1><%= i('index.tools') %></h1>
 <ul>
     <li>
-        <a href="/physics"><%= i('index.physics') %></a>
-    </li>
-</ul>
-<ul>
-    <li>
-        <a href="/">en-US</a>
-    </li>
-    <li>
-        <a href="/pt-BR">pt-BR</a>
+        <a href="<%= u('/physics') %>"><%= i('index.physics') %></a>
     </li>
 </ul>
 
