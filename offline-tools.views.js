@@ -1,33 +1,33 @@
 const path = require("path");
+const fs = require('fs')
+
 const recursiveReadSync = require('recursive-readdir-sync')
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const Translator = require('./src/lib/i18n/translator');
 const UrlHelper = require('./src/lib/url/url');
 
 // TODO: separate this in a config file
-const viewsRoot = './src/views';
+const viewsRoot = 'src/views';
 const partialsRoot = 'src/views/partials/';
 
 const availableLanguages = ['en-US', 'pt-BR']
 const indexLang = 'en-US';
 const urlBase = '/';
 
-function getViews() {
-  return getViewsForEachLanguage(buildViewObjects());
-}
-
 function buildViewObjects() {
   return recursiveReadSync(viewsRoot)
     .filter(file => {
       return !isPartialView(file) && isEjs(file);
     }).map(file => {
-      let viewPath = path.dirname(file).replace('src/views', '.');
-      if (viewPath === 'views') {
-        viewPath = '';
-      }
+      const viewFolder = path.dirname(file);
+      const viewPath = viewFolder.replace(viewsRoot, '.');
+
+      const viewJsFile = path.join(viewFolder, 'index.js');
+      const indexJs = fs.existsSync(viewJsFile) ? viewJsFile : null;
       return ({
           path: viewPath,
-          template: file
+          template: file,
+          js: indexJs
         }
       );
     });
@@ -68,21 +68,38 @@ function getUrlHelperFor(view) {
   return UrlHelper.createHelper(rootPath);
 }
 
+function createView(view) {
+  return new HtmlWebpackPlugin({
+    filename: `${view.path && view.path + '/'}index.html`,
+    template: `!!ejs-webpack-loader!${view.template}`,
+    title: null,
+    pageName: null,
+    chunks: ['offlineTools', buildEntryKeyForView(view)],
+    inject: "head",
+    offlineTools: {
+      lang: view.lang,
+      i18n: Translator.get(`${__dirname}/i18n`, view.lang),
+      url: getUrlHelperFor(view),
+    },
+  });
+}
+
+function getViewsEntries(entries, views) {
+  views.filter(v => v.js)
+    .forEach(v => {
+      entries[buildEntryKeyForView(v)] = './' + v.js;
+    });
+
+  return entries;
+}
+
+function buildEntryKeyForView(view) {
+  return view.path.replace('./', '').replace('/', '_');
+}
+
 module.exports = {
-  getViews: getViews,
-  createView: (view) => {
-    return new HtmlWebpackPlugin({
-      filename: `${view.path && view.path + '/'}index.html`,
-      template: `!!ejs-webpack-loader!${view.template}`,
-      title: null,
-      pageName: null,
-      chunks: ['offlineTools'],
-      inject: "head",
-      offlineTools: {
-        lang: view.lang,
-        i18n: Translator.get(`${__dirname}/i18n`, view.lang),
-        url: getUrlHelperFor(view)
-      },
-    })
-  },
-};
+  getViews: buildViewObjects,
+  getViewsForEachLanguage: getViewsForEachLanguage,
+  createView: createView,
+  getViewEntries: getViewsEntries,
+}

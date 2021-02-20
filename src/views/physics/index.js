@@ -1,1 +1,4 @@
-console.log('Hello world!');
+const app = require('../../lib/offline-tools');
+
+console.log(app.lang);
+

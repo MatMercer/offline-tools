@@ -1,9 +1,16 @@
-<% const i = htmlWebpackPlugin.options.offlineTools.i18n; %>
+<%
+const i = htmlWebpackPlugin.options.offlineTools.i18n;
+const lang = htmlWebpackPlugin.options.offlineTools.lang;
+%>
 
 <!doctype html>
-<html>
+<html lang="<%= lang.split('-')[0] %>">
 <head>
     <meta charset="utf-8">
     <title><%= i('site.title') %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="offlineTools.langCode" content="<%= lang %>">
 </head>
+<body>
+<div id="offline-tools">
+    {{ message }}
