@@ -81,7 +81,7 @@ function createView(view) {
     inject: "head",
     offlineTools: {
       lang: view.lang,
-      i18n: Translator.get(`${__dirname}/i18n`, view.lang),
+      i18n: Translator.get(`${__dirname}/src/i18n`, view.lang),
       url: getUrlHelperFor(view),
     },
   });

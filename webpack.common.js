@@ -10,7 +10,7 @@ const viewsForEachLang = offlineTools
 
 module.exports = {
   entry: offlineTools.getViewEntries({
-    offlineTools: './src/lib/offline-tools.js',
+    offlineTools: './src/lib/offline-tools.js', // main chunk for the website, handle scripts used by all views
   }, views),
   plugins: [
     new CleanWebpackPlugin({cleanStaleWebpackAssets: false}),
@@ -41,8 +41,9 @@ module.exports = {
     ],
   },
   output: {
-    filename: 'js/[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
+    publicPath: "/",
+    filename: 'js/[name].[contenthash].js',
   },
   optimization: {
     moduleIds: 'deterministic',
