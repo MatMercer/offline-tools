@@ -105,7 +105,10 @@ function createEntrypointFor(view) {
 }
 
 function buildEntrypointName(view) {
-  return view.path.replace('./', '').replace('/', '_');
+  return view.path.replace('./', '')
+    .replace(`${view.lang}/`, '')
+    .replace(view.lang, '')
+    .replace('/', '_');
 }
 
 module.exports = {

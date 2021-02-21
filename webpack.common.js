@@ -15,8 +15,6 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin({cleanStaleWebpackAssets: false}),
     new MiniCssExtractPlugin({
-      // Options similar to the same options in webpackOptions.output
-      // both options are optional
       filename: "css/[name].[contenthash].css",
       chunkFilename: "[id].css",
     }),
@@ -50,9 +48,6 @@ module.exports = {
     moduleIds: 'deterministic',
     runtimeChunk: 'single',
     splitChunks: {
-      chunks: "all",
-      // minChunks: 1,
-      // maxSize: 1,
       cacheGroups: {
         vendor: {
           test: /[\\/]node_modules[\\/]/,
