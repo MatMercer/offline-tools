@@ -6,6 +6,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const Translator = require('./src/lib/i18n/translator');
 const UrlHelper = require('./src/lib/url/url');
 
+const offlineToolsChunk = 'offlineTools';
+
 // TODO: separate this in a config file
 const viewsRoot = 'src/views';
 const partialsRoot = 'src/views/partials/';
@@ -68,13 +70,14 @@ function getUrlHelperFor(view) {
   return UrlHelper.createHelper(rootPath);
 }
 
+
 function createView(view) {
   return new HtmlWebpackPlugin({
     filename: `${view.path && view.path + '/'}index.html`,
     template: `!!ejs-webpack-loader!${view.template}`,
     title: null,
     pageName: null,
-    chunks: ['offlineTools', buildEntryKeyForView(view)],
+    chunks: [offlineToolsChunk, buildEntrypointName(view)],
     inject: "head",
     offlineTools: {
       lang: view.lang,
@@ -87,13 +90,21 @@ function createView(view) {
 function getViewsEntries(entries, views) {
   views.filter(v => v.js)
     .forEach(v => {
-      entries[buildEntryKeyForView(v)] = './' + v.js;
+      const entrypointName = buildEntrypointName(v);
+      entries[entrypointName] = createEntrypointFor(v);
     });
 
   return entries;
 }
 
-function buildEntryKeyForView(view) {
+function createEntrypointFor(view) {
+  return {
+    import: './' + view.js,
+    dependOn: offlineToolsChunk // very important, if not configured, offlineTools.js is duplicated between view chunks
+  };
+}
+
+function buildEntrypointName(view) {
   return view.path.replace('./', '').replace('/', '_');
 }
 

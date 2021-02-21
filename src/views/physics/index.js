@@ -1,4 +1,4 @@
-const app = require('../../lib/offline-tools');
+import {app} from "../../lib/offline-tools";
 
 console.log(app.lang);
 

@@ -1,3 +1,8 @@
+import "../scss/style.scss"
+import Vue from "vue/dist/vue.common.dev"
+
+new Vue();
+
 class OfflineTools {
   constructor() {
     this._lang = document.querySelector('meta[name="offlineTools.langCode"]').content;
@@ -8,6 +13,4 @@ class OfflineTools {
   }
 }
 
-const app = new OfflineTools();
-
-module.exports = app;
+export const app = new OfflineTools();
