@@ -1,6 +1,9 @@
 {
   "site": {
-    "title": "Offline Tools"
+    "title": "Offline Tools",
+    "navbar": {
+      "language": "Language"
+    }
   },
   "index": {
     "tools": "Tools",

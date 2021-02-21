@@ -1,6 +1,9 @@
 {
   "site": {
-    "title": "Ferramentas Offline"
+    "title": "Ferramentas Offline",
+    "navbar": {
+      "language": "Língua"
+    }
   },
   "index": {
     "tools": "Ferramentas",

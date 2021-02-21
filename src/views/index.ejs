@@ -2,11 +2,15 @@
 <% const u = htmlWebpackPlugin.options.offlineTools.url; %>
 <%- include partials/top.ejs %>
 
-<h1><%= i('index.tools') %></h1>
-<ul>
-    <li>
-        <a href="<%= u('/physics') %>"><%= i('index.physics') %></a>
-    </li>
-</ul>
+<section class="container">
+    <article class="row">
+        <h1><%= i('index.tools') %></h1>
+        <div class="list-group">
+            <a class="list-group-item" href="<%= u('/physics') %>">
+                <%= i('index.physics') %>
+            </a>
+        </div>
+    </article>
+</section>
 
 <%- include partials/bottom.ejs %>
