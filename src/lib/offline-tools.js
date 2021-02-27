@@ -1,17 +1,32 @@
-import "../scss/style.scss"
-import 'bootstrap';
-import Vue from "vue/dist/vue.common.dev"
+import Decimal from "decimal.js";
 
-new Vue();
+export const version = "1.0-beta";
 
-class OfflineTools {
+export const defaultMathContext = {precision: 32, rounding: Decimal.ROUND_HALF_DOWN};
+
+export class OfflineTools {
   constructor() {
-    this._lang = document.querySelector('meta[name="offlineTools.langCode"]').content;
+    // TODO: get the configuration from cookies
+    this._mathContext = new Decimal.clone(defaultMathContext);
   }
 
   get lang() {
+    if (!this._lang) {
+      this._lang = document.querySelector('meta[name="offlineTools.langCode"]').content;
+    }
+
     return this._lang;
+  }
+
+  get mathContext() {
+    return this._mathContext;
+  }
+
+  /**
+   * @param {Decimal.Config} options
+   */
+  updateMathContext(options) {
+    this._mathContext = this._mathContext.set(options);
   }
 }
 
-export const app = new OfflineTools();

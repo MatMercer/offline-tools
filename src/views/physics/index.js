@@ -1,4 +1,4 @@
-import {app} from "../../lib/offline-tools";
+import {app} from "../../lib/entrypoint";
 
 console.log(app.lang);
 

@@ -14,7 +14,9 @@
       "title": "Ferramentas de Física",
       "temperature-converter": {
         "title": "Conversor de Temperaturas",
-        "description": "Converta diferente tipos de unidades de temperatura."
+        "description": "Converta diferente tipos de unidades de temperatura.",
+        "value": "Valor",
+        "result": "Resultado"
       }
     }
   }

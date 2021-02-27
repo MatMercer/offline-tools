@@ -14,7 +14,9 @@
       "title": "Physics Tools",
       "temperature-converter": {
         "title": "Temperature Converter",
-        "description": "Convert different types of temperature units."
+        "description": "Convert different types of temperature units.",
+        "value": "Value",
+        "result": "Result"
       }
     }
   }

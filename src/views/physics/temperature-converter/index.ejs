@@ -2,10 +2,32 @@
 <%- include ../../partials/top.ejs %>
 
 <section class="container">
-    <article class="row">
+    <article id="temperature-converter" class="row d-flex justify-content-center">
         <h1><%= i('tools.physics.temperature-converter.title') %></h1>
 
         <p><%= i('tools.physics.temperature-converter.description') %></p>
+
+        <div class="col-md-8 col-lg-6 d-flex flex-column align-items-center">
+            <select v-model="units.from" class="form-select" id="unit-from" aria-label="Unit from convert">
+                <option value="F">Fahrenheit</option>
+                <option value="C">Celsius</option>
+            </select>
+            <input @input="convert('from')" v-model="values.from" type="text" class="form-control" id="value-from"
+                   aria-describedby="from"
+                   placeholder="<%= i('tools.physics.temperature-converter.value') %>">
+        </div>
+        <div class="col-12 d-flex justify-content-center align-items-center flex-column">
+            <span class="h1 user-select-none">=</span>
+        </div>
+        <div class="col-md-8 col-lg-6 d-flex flex-column align-items-center">
+            <select v-model="units.to" id="unit-to" class="form-select" aria-label="Unit to convert">
+                <option value="F">Fahrenheit</option>
+                <option value="C">Celsius</option>
+            </select>
+            <input @input="convert('to')" v-model="values.to" type="text" class="form-control" id="value-to"
+                   aria-describedby="to"
+                   placeholder="<%= i('tools.physics.temperature-converter.result') %>">
+        </div>
     </article>
 </section>
 

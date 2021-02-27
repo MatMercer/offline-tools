@@ -10,7 +10,7 @@ const viewsForEachLang = offlineTools
 
 module.exports = {
   entry: offlineTools.getViewEntries({
-    offlineTools: './src/lib/offline-tools.js', // main chunk for the website, handle scripts used by all views
+    offlineTools: './src/lib/entrypoint.js', // main chunk for the website, handle scripts used by all views
   }, views),
   plugins: [
     new CleanWebpackPlugin({cleanStaleWebpackAssets: false}),
@@ -58,5 +58,10 @@ module.exports = {
       },
     },
   },
+  resolve: {
+    alias: {
+      "vue": "vue/dist/vue.esm-bundler.js"
+    }
+  }
 };
 
