@@ -1,10 +1,18 @@
-<% const i = htmlWebpackPlugin.options.offlineTools.i18n; %>
+<%
+const i = htmlWebpackPlugin.options.offlineTools.i18n;
+const r = htmlWebpackPlugin.options.offlineTools.relativeUrl;
+%>
 <%- include ../partials/top.ejs %>
 
 <section class="container">
     <article class="row">
         <h1><%= i('tools.physics.title') %></h1>
 
+        <div class="list-group">
+            <a class="list-group-item" href="<%= r('/temperature-converter') %>">
+                <%= i('tools.physics.temperature-converter.title') %>
+            </a>
+        </div>
     </article>
 </section>
 

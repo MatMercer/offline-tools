@@ -46,7 +46,8 @@ function isEjs(file) {
 function getViewsForEachLanguage(views) {
   return availableLanguages.map(lang => {
     return views.map(v => ({
-      path: createViewPath(lang, v.path),
+      path: v.path,
+      translatedPath: createViewPath(lang, v.path),
       template: v.template,
       lang: lang
     }));
@@ -67,13 +68,13 @@ function getUrlHelperFor(view) {
     rootPath = path.join(rootPath, view.lang);
   }
 
-  return UrlHelper.createHelper(rootPath);
+  return UrlHelper.UrlHelper.createHelper(rootPath);
 }
 
 
 function createView(view) {
   return new HtmlWebpackPlugin({
-    filename: `${view.path && view.path + '/'}index.html`,
+    filename: `${view.translatedPath && view.translatedPath + '/'}index.html`,
     template: `!!ejs-webpack-loader!${view.template}`,
     title: null,
     pageName: null,
@@ -83,6 +84,8 @@ function createView(view) {
       lang: view.lang,
       i18n: Translator.get(`${__dirname}/src/i18n`, view.lang),
       url: getUrlHelperFor(view),
+      relativeUrl: UrlHelper.UrlHelper.createHelper(view.translatedPath),
+      translateUrl: UrlHelper.TranslateUrlHelper.createHelper(urlBase, view, indexLang)
     },
   });
 }
@@ -106,8 +109,6 @@ function createEntrypointFor(view) {
 
 function buildEntrypointName(view) {
   return view.path.replace('./', '')
-    .replace(`${view.lang}/`, '')
-    .replace(view.lang, '')
     .replace('/', '_');
 }
 

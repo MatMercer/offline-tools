@@ -13,7 +13,8 @@
     "physics": {
       "title": "Ferramentas de Física",
       "temperature-converter": {
-        "title": "Conversor de Temperaturas"
+        "title": "Conversor de Temperaturas",
+        "description": "Converta diferente tipos de unidades de temperatura."
       }
     }
   }

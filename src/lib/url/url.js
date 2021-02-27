@@ -15,4 +15,37 @@ class UrlHelper {
   }
 }
 
-module.exports = UrlHelper;
+class RelativeUrlHelper extends UrlHelper {
+  static createHelper(view) {
+    const u = new RelativeUrlHelper(view.path)
+    return u.getUrlFor.bind(u);
+  }
+}
+
+class TranslateUrlHelper extends UrlHelper {
+  constructor(rootPath, viewPath, indexLang) {
+    super(rootPath);
+    this.viewPath = viewPath;
+    this.indexLang = indexLang;
+  }
+
+  getUrlFor(lang) {
+    let langPath = lang;
+    if (lang === this.indexLang) {
+      langPath = "/"
+    }
+    return path.join(this.rootPath, langPath, this.viewPath);
+  }
+
+  static createHelper(rootPath, view, indexLang) {
+    const u = new TranslateUrlHelper(rootPath, view.path, indexLang);
+    return u.getUrlFor.bind(u);
+  }
+
+}
+
+module.exports = {
+  UrlHelper,
+  RelativeUrlHelper,
+  TranslateUrlHelper
+};
